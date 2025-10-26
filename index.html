@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Paper to Slide Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="container">
+                <h1 class="app-title">Scientific Paper to Slide Generator</h1>
+                <p class="app-subtitle">Transform research papers into professional presentations using AI</p>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tab-nav">
+            <div class="container">
+                <button class="tab-btn active" data-tab="upload">Upload Paper</button>
+                <button class="tab-btn" data-tab="manual">Manual Input</button>
+                <button class="tab-btn" data-tab="slides">Generated Slides</button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                
+                <!-- Upload Tab -->
+                <div class="tab-content active" id="upload-tab">
+                    <div class="upload-section">
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-icon">📄</div>
+                            <h3>Drop your research paper here</h3>
+                            <p>Supports PDF files up to 50MB</p>
+                            <input type="file" id="file-input" accept=".pdf" hidden>
+                            <button class="btn btn--secondary" onclick="document.getElementById('file-input').click()">
+                                Choose File
+                            </button>
+                        </div>
+                        <div class="file-info hidden" id="file-info">
+                            <h4>File Information</h4>
+                            <div class="file-details">
+                                <span class="file-name"></span>
+                                <span class="file-size"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>Processing Configuration</h3>
+                        <div class="config-grid">
+                            <div class="config-item">
+                                <label class="form-label" for="slide-count">Number of Slides</label>
+                                <select id="slide-count" class="form-control">
+                                    <option value="5">5 slides</option>
+                                    <option value="8" selected>8 slides</option>
+                                    <option value="12">12 slides</option>
+                                    <option value="15">15 slides</option>
+                                    <option value="20">20 slides</option>
+                                </select>
+                            </div>
+                            <div class="config-item">
+                                <label class="form-label" for="presentation-style">Presentation Style</label>
+                                <select id="presentation-style" class="form-control">
+                                    <option value="academic" selected>Academic Conference</option>
+                                    <option value="business">Business Professional</option>
+                                    <option value="teaching">Educational</option>
+                                    <option value="minimal">Minimal</option>
+                                </select>
+                            </div>
+                            <div class="config-item">
+                                <label class="form-label">Focus Areas</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" checked> Introduction</label>
+                                    <label><input type="checkbox" checked> Methodology</label>
+                                    <label><input type="checkbox" checked> Results</label>
+                                    <label><input type="checkbox" checked> Discussion</label>
+                                    <label><input type="checkbox"> Conclusion</label>
+                                </div>
+                            </div>
+                            <div class="config-item">
+                                <label class="form-label" for="layout-style">Layout Preference</label>
+                                <select id="layout-style" class="form-control">
+                                    <option value="balanced" selected>Balanced</option>
+                                    <option value="text-heavy">Text-heavy</option>
+                                    <option value="visual-focused">Visual-focused</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary btn--lg generate-btn" id="generate-slides">
+                            Generate Slides
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Manual Input Tab -->
+                <div class="tab-content" id="manual-tab">
+                    <div class="manual-input-section">
+                        <h3>Enter Research Paper Content</h3>
+                        <div class="form-group">
+                            <label class="form-label" for="paper-title">Paper Title</label>
+                            <input type="text" id="paper-title" class="form-control" placeholder="Enter the title of your research paper">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="paper-content">Paper Content</label>
+                            <textarea id="paper-content" class="form-control manual-textarea" 
+                                placeholder="Paste your research paper content here (abstract, introduction, methodology, results, conclusion)..."></textarea>
+                        </div>
+                        <button class="btn btn--primary btn--lg" id="process-manual">
+                            Process Content
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Generated Slides Tab -->
+                <div class="tab-content" id="slides-tab">
+                    <div class="slides-header">
+                        <h3>Generated Presentation</h3>
+                        <div class="slides-controls">
+                            <button class="btn btn--outline" id="preview-mode">Preview Mode</button>
+                            <button class="btn btn--secondary" id="export-slides">Export Slides</button>
+                        </div>
+                    </div>
+                    <div class="slides-container" id="slides-container">
+                        <!-- Slides will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div class="tab-content" id="settings-tab">
+                    <div class="settings-section">
+                        <h3>Application Settings</h3>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label class="form-label">Default Template</label>
+                                <select class="form-control">
+                                    <option value="academic">Academic Conference</option>
+                                    <option value="business">Business Professional</option>
+                                    <option value="teaching">Educational</option>
+                                    <option value="minimal">Minimal</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label class="form-label">Export Format</label>
+                                <select class="form-control">
+                                    <option value="pptx">PowerPoint (.pptx)</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="google">Google Slides</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label class="form-label">Language</label>
+                                <select class="form-control">
+                                    <option value="en">English</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
+                                    <option value="de">German</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-label">
+                                    <input type="checkbox"> High contrast mode
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked> Auto-generate speaker notes
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-label">
+                                    <input type="checkbox"> Include citations
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Processing Modal -->
+        <div class="modal hidden" id="processing-modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <h3>Processing Your Research Paper</h3>
+                <div class="processing-steps" id="processing-steps">
+                    <!-- Steps will be added dynamically -->
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="processing-info">
+                    <span id="current-step">Initializing...</span>
+                    <span id="time-remaining">Estimated time: 45s</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Modal -->
+        <div class="modal hidden" id="preview-modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content modal-fullscreen">
+                <div class="preview-header">
+                    <button class="btn btn--outline" id="close-preview">Exit Preview</button>
+                    <div class="slide-nav">
+                        <button class="btn btn--secondary" id="prev-slide">Previous</button>
+                        <span id="slide-counter">1 / 8</span>
+                        <button class="btn btn--secondary" id="next-slide">Next</button>
+                    </div>
+                </div>
+                <div class="preview-slide" id="preview-slide">
+                    <!-- Current slide content -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Features Panel -->
+        <div class="tech-panel hidden" id="tech-panel">
+            <div class="tech-header">
+                <h4>AI Analysis Dashboard</h4>
+                <button class="close-btn" id="close-tech-panel">×</button>
+            </div>
+            <div class="tech-content">
+                <div class="tech-section">
+                    <h5>Figure Detection</h5>
+                    <div class="detected-figures">
+                        <div class="figure-item">📊 Performance Comparison Chart</div>
+                        <div class="figure-item">🏗️ CNN Architecture Diagram</div>
+                        <div class="figure-item">📋 Benchmark Results Table</div>
+                    </div>
+                </div>
+                <div class="tech-section">
+                    <h5>Content Salience Scores</h5>
+                    <div class="salience-bars">
+                        <div class="salience-item">
+                            <span>Abstract</span>
+                            <div class="salience-bar"><div style="width: 95%"></div></div>
+                        </div>
+                        <div class="salience-item">
+                            <span>Results</span>
+                            <div class="salience-bar"><div style="width: 88%"></div></div>
+                        </div>
+                        <div class="salience-item">
+                            <span>Methodology</span>
+                            <div class="salience-bar"><div style="width: 75%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
