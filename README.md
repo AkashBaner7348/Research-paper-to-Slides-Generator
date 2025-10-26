@@ -77,7 +77,7 @@ Enhance figure/table captioning.
 Explore integrations with online journal and conference systems.
 
 👤 Author
-[Your Name] – AkashBaner7348
+AkashBaner7348
 Contact: akashbanerjee11aroll21@gmail.com
 
 🙏 Acknowledgements
